@@ -11,11 +11,9 @@ export const api_phoneBook = {
 
   // ========================================================
   
-  // CallBack при нажатии на элемент списка - 
-  // в аргумент передатется объект со всеми полями
+  // CallBack при нажатии на элемент списка / listElement - 
   
-  callback: function(arg) {
-                  return console.log(arg)},
+  callback(listElement) { return console.log(listElement) },
 
   // ========================================================
 

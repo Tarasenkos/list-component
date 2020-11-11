@@ -13,7 +13,18 @@ export function getSubscribers(self) {
 
 }
 
-export function selectItem(self) {
+export function collapseOrSelectItem(self) {
+
+  const isCollapsable = event.target.dataset.type === 'caption'
+  const parent = event.target.parentElement
+  
+  isCollapsable ? parent.classList.toggle('collapse') 
+                : selectItem(self)
+
+
+}
+
+function selectItem(self) {
 
     const target = event.target
     const current = self.current || ''
@@ -35,8 +46,6 @@ export function selectItem(self) {
     }
 }
 
-
-// ================================================================================
 
 function findItemByid(array, id) {
   try {

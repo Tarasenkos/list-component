@@ -7,7 +7,7 @@ export class Listener {
     this.trigger = options.trigger
   }
 
-  // Делаем обертку/фасад для упрощения синтаксиса
+  
   trig(event, arg) {
     return this.trigger.trig(event, arg)
   }

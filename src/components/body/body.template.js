@@ -1,7 +1,12 @@
 import { getObjKeys } from "../../common/functions.js"
 
+export function getBody(options) {
+  options.root.innerHTML = bodyTemplate(options)
 
-export function bodyTemplate(options) {
+}
+
+
+function bodyTemplate(options) {
 
   const { items,
           columns = false,

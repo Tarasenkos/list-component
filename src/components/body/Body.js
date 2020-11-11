@@ -1,5 +1,5 @@
-import { getSubscribers, selectItem } from "./body.functions.js"
-import { bodyTemplate } from "./body.template.js"
+import { collapseOrSelectItem, getSubscribers} from "./body.functions.js"
+import { getBody } from "./body.template.js"
 import { Listener } from "../../common/listener.js"
 import { getDefaultColumn } from "../../common/data.functions.js"
 
@@ -21,10 +21,12 @@ export class Body extends Listener {
 
   init() {
 
-    const options = {}
-      options.items = this.items
-      options.sortBy = getDefaultColumn(options.items)
-      options.toTable = this.toTable
+    const options = {
+      items: this.items,
+      sortBy: getDefaultColumn(this.items),
+      toTable: this.toTable,
+      root: this.root,
+    }
     
     this.sortBy = options.sortBy
     const render = () => {this.render(options)}
@@ -36,17 +38,13 @@ export class Body extends Listener {
 
   render(options) {
     options.columns = this.api.columns
-    this.removeListeners(this.root)
-    this.root.innerHTML = bodyTemplate(options)
+    this.removeListeners()
+    getBody(options)
     this.addListeners()
   }
 
   onClick() {
-
-    const caption = event.target.dataset.type === 'caption'
-    const parent = event.target.parentElement
-    
-    caption && parent.classList.toggle('collapse') || selectItem(this)
+    collapseOrSelectItem(this)
   }
 
   destroy() {

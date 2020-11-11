@@ -11,11 +11,9 @@ export const api_people = {
 
   // ========================================================
   
-  // CallBack при нажатии на элемент списка - 
-  // в аргумент передатется объект со всеми полями
-  
-  callback: function(arg) {
-                  return console.log(arg)},
+  // CallBack при нажатии на элемент списка / listElement - 
+    
+  callback(listElement) { return console.log(listElement) },
 
   // ========================================================
 
