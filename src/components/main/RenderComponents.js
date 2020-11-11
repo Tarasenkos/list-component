@@ -4,12 +4,11 @@ import { Trigger } from "../../common/trigger.js"
 
 export class RenderComponents {
   constructor(options) {
-    this.api = options.api
-    this.items = options.items
-    this.initialData = getInitialData(this.items)
-    this.components = options.Components
-    this.domElement = document.querySelector(options.domid)
+    
     this.domid = options.domid
+    this.items = options.items
+    this.components = options.Components
+    this.api = options.api
 
     this.render()
   }
@@ -20,6 +19,7 @@ export class RenderComponents {
 }
 
 function createComponent(componentOptions) {
+  
   return (Component) => {
     let options = Object.assign({}, componentOptions)
     options.root = createElement("div", Component.className)
@@ -32,9 +32,9 @@ function createComponent(componentOptions) {
 
 function getOptions(self) {
   return {
-    domElement: self.domElement,
+    domElement: document.querySelector(self.domid),
     trigger: new Trigger(),
-    items: self.initialData,
+    items: getInitialData(self.items),
     api: self.api,
   }
 }

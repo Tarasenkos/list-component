@@ -7,4 +7,3 @@ import { api_people } from './src/api/api_people.js'
 new List ('#phonebook', phoneBook, api_phoneBook)
 new List ('#cars', cars, api_cars)
 new List ('#people', people, api_people)
-
