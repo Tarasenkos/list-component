@@ -6,34 +6,50 @@ export class Item {
     this.id = index
     this.columns = getObjKeys(initialItem)
     this.sortColumnName = getSortColumnName(initialItem)
-    this.sortValue = ''
-
+    
     this.setSortValue()
+    this.getLetter()
+    console.log(this.getHTML())
   }
 
-  _getLetter() { return this.sortValue[0].toUpperCase() || ' '  }
+  getLetter() { 
+    const firstSimbol = this.item[this.sortColumnName][0]
+    this.key = firstSimbol && firstSimbol.toUpperCase() || ' '}
 
   setSortColumnName(arg) {
     this.sortColumnName = arg
-    return this.setSortValue()
-  }
-
-  getInfo() {
-    return {
-      item: this.item,
-      id: this.id,
-      key: this._getLetter()
-    }
+    this.setSortValue()
+    this.getLetter()
   }
 
   setSortValue() {
 
-    const sortField = this.item[this.sortColumnName]
+    const sortColumnValue = this.item[this.sortColumnName]
     const concatAllColumnValues = this.columns
       .filter(column => column !== this.sortColumnName)
       .map(column => this.item[column]).join('')
 
-    this.sortValue = (sortField + concatAllColumnValues).toLowerCase()
+    this.sortValue = (sortColumnValue + concatAllColumnValues).toLowerCase()
+  }
+
+  getHTML(toTable){
+
+    const keys = this.columns
+    const sortBy = this.sortColumnName
+  
+  return keys.map(key => {
+
+    if (!toTable) {
+      return key === sortBy
+        ? `<b>${this.item[key]}</b>`
+        : `${this.item[key]}`
+    }
+
+    return key === sortBy
+      ? `<div class="item__element"><b>${this.item[key]}</b></div>`
+      : `<div class="item__element">${this.item[key]}</div>`
+
+  }).join(' ')
   }
 }
 

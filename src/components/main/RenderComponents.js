@@ -1,4 +1,4 @@
-import { sortArray } from "../../common/data.functions.js"
+import { sortList } from "../../common/data.functions.js"
 import { createElement } from "../../common/functions.js"
 import { Trigger } from "../../common/trigger.js"
 import { Item } from "../Item/Item.js"
@@ -37,7 +37,7 @@ function getOptions(self) {
   return {
     domElement: document.querySelector(self.domid),
     trigger: new Trigger(),
-    items: sortArray(self.items.map(getItem)),
+    items: sortList(self.items.map(getItem)),
     api: self.api,
   }
 }

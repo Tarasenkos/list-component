@@ -24,7 +24,7 @@ export class Body extends Listener {
       toTable: this.toTable,
       root: this.root,
     }
-    
+
     this.sortBy = options.sortBy
     const render = () => {this.render(options)}
     

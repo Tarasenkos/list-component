@@ -1,13 +1,10 @@
-export function sortArray(list, column) {
+export function sortList(list, sortColumnName) {
 
-  if (!column) { column = list[0].sortColumnName}
+  !sortColumnName && (sortColumnName = list[0].sortColumnName)
   
-  list.map(item => item.setSortColumnName(column))
+  list.map(item => item.setSortColumnName(sortColumnName))
   
-  const sorted = list.sort(sortItems)
-  const result = addGroupKey(sorted, column)
-  
-  return result
+  return list.sort(sortItems)
 }
 
 function sortItems(next, prev) {
@@ -19,15 +16,3 @@ function sortItems(next, prev) {
       ? nextItem > prevItem ? 1:-1
       : next.sortValue > prev.sortValue ? 1: -1
   }
-
-
-function addGroupKey(array, columnToSortBy) {
-
-  function addGroupLetter(arrayLine) {
-    let columnValue = arrayLine.item[columnToSortBy]
-    let firstLetter = columnValue[0]
-    arrayLine.key = firstLetter && firstLetter.toUpperCase() || ' '
-    return arrayLine
-  }
-  return array.map(addGroupLetter)
-}

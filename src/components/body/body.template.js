@@ -10,7 +10,6 @@ function bodyTemplate(options) {
 
   const { items,
     columns = false,
-    sortBy = 'lastName',
     toTable } = options
 
   const keys = getObjKeys(columns)
@@ -28,7 +27,7 @@ function bodyTemplate(options) {
 
     if (currentLetter !== prevLetter) {
 
-      html = html + getGroup(currentLetter, items, i, keys, sortBy, toTable)
+      html = html + getGroup(currentLetter, items, i, toTable)
 
       if (!items[i]) break
       if (currentLetter !== items[i].key) i--
@@ -40,7 +39,7 @@ function bodyTemplate(options) {
   return html
 }
 
-function getGroup(currentLetter, items, i, keys, sortBy, toTable) {
+function getGroup(currentLetter, items, i, toTable) {
   let itemHTML = ''
 
 
@@ -48,7 +47,7 @@ function getGroup(currentLetter, items, i, keys, sortBy, toTable) {
 
   while (currentLetter === items[i].key) {
 
-    itemHTML = itemHTML + getItemHTML(items[i], keys, sortBy, toTable)
+    itemHTML = itemHTML + getItemHTML(items[i], toTable)
     i++
     if (!items[i]) break
 
@@ -70,9 +69,9 @@ function getCaptonHTML(caption) {
 
 
 
-function getItemHTML(item, keys, sortBy, toTable) {
+function getItemHTML(item, toTable) {
 
-  const element = getElement(item, keys, sortBy, toTable)
+  const element = item.getHTML(toTable)
 
   return (!toTable)
     ? `<div id="item" class="item" data-type="item" data-id=${item.id}>
@@ -82,23 +81,4 @@ function getItemHTML(item, keys, sortBy, toTable) {
     : `<div id="item" class="item item__flex" data-type="item" data-id=${item.id}>
                 ${element}
               </div>`
-  
-  
 }
-
-function getElement(item, keys, sortBy, toTable) {
-  return keys.map(key => {
-
-    if (!toTable) {
-      return key === sortBy
-        ? `<b>${item.item[key]}</b>`
-        : `${item.item[key]}`
-    }
-
-    return key === sortBy
-      ? `<div class="item__element"><b>${item.item[key]}</b></div>`
-      : `<div class="item__element">${item.item[key]}</div>`
-
-  }).join(' ')
-}
-

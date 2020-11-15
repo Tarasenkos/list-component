@@ -1,4 +1,4 @@
-import { sortArray } from '../../common/data.functions.js';
+import { sortList } from '../../common/data.functions.js';
 
 export function getSubscribers(self) {
 
@@ -65,7 +65,7 @@ function toggleTable(target, self) {
 
 function sortByColumn(column, self) {
   self.sortBy = column
-  self.items = sortArray(self.items, self.sortBy)
+  self.items = sortList(self.items, self.sortBy)
   self.render(self)
 }
 
@@ -85,4 +85,3 @@ function collExpAll(root, collapse) {
             : nodes.forEach(node => node.classList.remove('collapse'))
 
   }
-
