@@ -1,6 +1,7 @@
 import { createElement } from "../../common/functions.js"
 import { getInitialData } from '../../common/data.functions.js'
 import { Trigger } from "../../common/trigger.js"
+import { Item } from "../Item/Item.js"
 
 export class RenderComponents {
   constructor(options) {
@@ -31,12 +32,14 @@ function createComponent(componentOptions) {
 }
 
 function getOptions(self) {
+
   return {
     domElement: document.querySelector(self.domid),
     trigger: new Trigger(),
-    items: getInitialData(self.items),
+    items: self.items.map(getItem),
     api: self.api,
   }
 }
 
-
+function getItem(item, index) {
+  return new Item(item, index)}

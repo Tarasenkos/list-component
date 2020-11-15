@@ -16,11 +16,11 @@ export class Footer extends Listener {
 
   init() {
     this.render()
+    this.addListeners()
   }
 
   render() {
     getFooter(this.root)
-    this.addListeners()
   }
 
   onClick() {

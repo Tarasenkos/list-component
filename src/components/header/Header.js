@@ -16,11 +16,12 @@ export class Header extends Listener {
 
   init() {
     this.render()
+    this.addListeners()
   }
 
   render() {
     getHeader(this)
-    this.addListeners()
+    
   }
 
   onClick() {
