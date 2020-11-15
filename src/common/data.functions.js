@@ -1,62 +1,25 @@
-import { getObjKeys } from "./functions.js"
+export function sortArray(list, column) {
 
-
-
-export function getInitialData(initialItems) {
-
-  let initialData = sortArray(initialItems)
-
-  return initialData
-}
-
-export function sortArray(list, column = '') {
-
-  console.log('SORTEDBY: ', list)
-
-  list.map(item=>item.setSortColumn(column))
+  if (!column) { column = list[0].sortColumnName}
   
-  const result = list.sort(sortPattern(column))
-
-  //const result = addGroupKey(sorted, column)
-
+  list.map(item => item.setSortColumnName(column))
+  
+  const sorted = list.sort(sortItems)
+  const result = addGroupKey(sorted, column)
+  
   return result
 }
 
-export function getDefaultColumn(array) {
+function sortItems(next, prev) {
 
-  const isLastName = getKeys(array).includes('lastName')
-
-  const firstColumn = Object.keys(array[0].item)[0]
-
-  return isLastName ? 'lastName' : firstColumn
-
-}
-
-
-
-//=============================================================
-
-function sortPattern(column) {
-
-  return function (prev, next) {
-    const prevItem = prev.item[column]
-    const nextItem = next.item[column]
-
-    return prevItem !== nextItem
-      ? prevItem > nextItem ? 1 : -1
-      : sortEqualColumns(prev.item, next.item)
+  const nextItem = next.item[next.sortColumnName]
+  const prevItem = prev.item[prev.sortColumnName]
+  
+  return nextItem !== prevItem
+      ? nextItem > prevItem ? 1:-1
+      : next.sortValue > prev.sortValue ? 1: -1
   }
-}
 
-function sortEqualColumns(prev, next) {
-
-  const columnNames = getObjKeys(prev)
-  for (let column of columnNames) {
-
-    if (prev[column] !== next[column])
-      return prev[column] > next[column] ? 1 : -1
-  }
-}
 
 function addGroupKey(array, columnToSortBy) {
 
@@ -66,11 +29,5 @@ function addGroupKey(array, columnToSortBy) {
     arrayLine.key = firstLetter && firstLetter.toUpperCase() || ' '
     return arrayLine
   }
-
   return array.map(addGroupLetter)
 }
-
-function getKeys(array) { return Object.keys(array[0].item) }
-
-//function addID(...args) { return { item: args[0], id: args[1] } }
-

@@ -5,39 +5,43 @@ export class Item {
     this.item = initialItem
     this.id = index
     this.columns = getObjKeys(initialItem)
-    this.sortColumn = getSortColumn(initialItem)
+    this.sortColumnName = getSortColumnName(initialItem)
+    this.sortValue = ''
 
+    this.setSortValue()
   }
 
-  _getIndex() { return this.index }
-  _getLetter() { return this.sortColumn[0].toUpperCase() }
+  _getLetter() { return this.sortValue[0].toUpperCase() || ' '  }
 
-  setSortColumn(arg) {return this.sortColumn = arg}
+  setSortColumnName(arg) {
+    this.sortColumnName = arg
+    return this.setSortValue()
+  }
 
-  getItem() { return this.item }
   getInfo() {
     return {
-      item: this.getItem(),
-      id: this._getIndex(),
+      item: this.item,
+      id: this.id,
       key: this._getLetter()
     }
   }
 
-  getSortColumn() {
-    return (this.item[this.sortColumn]
-      + this.columns.map(column =>
-        this.item[column])
-        .join(''))
-      .toLowerCase()
+  setSortValue() {
+
+    const sortField = this.item[this.sortColumnName]
+    const concatAllColumnValues = this.columns
+      .filter(column => column !== this.sortColumnName)
+      .map(column => this.item[column]).join('')
+
+    this.sortValue = (sortField + concatAllColumnValues).toLowerCase()
   }
 }
 
+function getSortColumnName(object) {
 
-function getSortColumn(array) {
+  const isLastName = getObjKeys(object).includes('lastName')
+  const firstColumnName = getObjKeys(object)[0]
 
-  const isLastName = getObjKeys(array).includes('lastName')
-  const firstColumn = getObjKeys(array)[0]
-
-  return isLastName ? 'lastName' : firstColumn
+  return isLastName ? 'lastName' : firstColumnName
 
 }

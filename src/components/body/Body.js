@@ -1,8 +1,6 @@
 import { collapseOrSelectItem, getSubscribers} from "./body.functions.js"
 import { getBody } from "./body.template.js"
 import { Listener } from "../../common/listener.js"
-import { getDefaultColumn, getInitialData } from "../../common/data.functions.js"
-
 
 export class Body extends Listener {
   static className = 'body_component'
@@ -21,10 +19,8 @@ export class Body extends Listener {
 
   init() {
 
-
     const options = {
-      items: getInitialData(this.items),
-      sortBy: getDefaultColumn(this.items),
+      items: this.items,
       toTable: this.toTable,
       root: this.root,
     }
