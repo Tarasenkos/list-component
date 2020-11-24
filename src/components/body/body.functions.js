@@ -32,7 +32,7 @@ function selectItem(self) {
 
     if (closest && closest.dataset.type === 'item') {
 
-      let id = +closest.dataset.id
+      const id = +closest.dataset.id
 
       const object = findItemByid(self.items, id)
 

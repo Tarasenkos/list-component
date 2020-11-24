@@ -2,9 +2,7 @@ import { getObjKeys } from "../../common/functions.js"
 
 export function getBody(options) {
   options.root.innerHTML = bodyTemplate(options)
-
 }
-
 
 function bodyTemplate(options) {
 
@@ -13,7 +11,8 @@ function bodyTemplate(options) {
     toTable } = options
 
   const keys = getObjKeys(columns)
-
+  
+  let currentLetter = ''
   let prevLetter = ''
   let html = ''
 
@@ -23,11 +22,11 @@ function bodyTemplate(options) {
 
     prevLetter = prevLetter || ''
 
-    let currentLetter = items[i].key
+    currentLetter = items[i].key
 
     if (currentLetter !== prevLetter) {
 
-      html = html + getGroup(currentLetter, items, i, toTable)
+      html += getGroup(currentLetter, items, toTable)
 
       if (!items[i]) break
       if (currentLetter !== items[i].key) i--
@@ -39,23 +38,19 @@ function bodyTemplate(options) {
   return html
 }
 
-function getGroup(currentLetter, items, i, toTable) {
-  let itemHTML = ''
-
-
+function getGroup(currentLetter, items, toTable) {
+  let groupHTML = ''
   const caption = getCaptonHTML(currentLetter)
 
-  while (currentLetter === items[i].key) {
-
-    itemHTML = itemHTML + getItemHTML(items[i], toTable)
-    i++
-    if (!items[i]) break
-
+  for (let item of items) {
+    if (currentLetter === item.key) {
+      groupHTML += item.getHTML(toTable)
+    }
   }
 
   return `<div data-type="collapsable">
             ${caption}
-            ${itemHTML}
+            ${groupHTML}
           </div>`
 }
 
@@ -64,21 +59,5 @@ function getCaptonHTML(caption) {
   return `    
               <div class="caption" data-type="caption" data-caption=${caption}>
                 ${caption}
-              </div>`
-}
-
-
-
-function getItemHTML(item, toTable) {
-
-  const element = item.getHTML(toTable)
-
-  return (!toTable)
-    ? `<div id="item" class="item" data-type="item" data-id=${item.id}>
-                  ${element}
-              </div>`
-
-    : `<div id="item" class="item item__flex" data-type="item" data-id=${item.id}>
-                ${element}
               </div>`
 }

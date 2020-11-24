@@ -10,13 +10,13 @@ export class RenderComponents {
     this.items = options.items
     this.components = options.Components
     this.api = options.api
+    this.init()
 
-    this.render()
   }
 
-  render() {
+  init() {
     const options = getOptions(this)
-    this.components.forEach(createComponent(options))
+    this.components.map(createComponent(options))
   }
 }
 

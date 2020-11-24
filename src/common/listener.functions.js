@@ -15,17 +15,12 @@ export function addListener(self) {
 
 export function removeListener(self) {
   return function (listener) {
-    const eventName = getEventName(listener) // формируем привычное название события
+    const eventName = getEventName(listener) 
     self.root.removeEventListener(listener, self[eventName])
   }
 
 }
 
-
-
-// ======================================================================
-// Вспомогательные функции для формирования привычного названия события
-// ======================================================================
 
 // cLiCK => Click
 function UpperCase(string) {

@@ -11,6 +11,7 @@ export class Footer extends Listener {
       ...options
     })
     this.root = options.root
+    this.toTable = options.api.table
 
   }
 
@@ -20,7 +21,7 @@ export class Footer extends Listener {
   }
 
   render() {
-    getFooter(this.root)
+    getFooter(this)
   }
 
   onClick() {
