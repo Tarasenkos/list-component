@@ -1,8 +1,6 @@
 import { collapseOrSelectItem, getSubscribers} from "./body.functions.js"
 import { getBody } from "./body.template.js"
 import { Listener } from "../../common/listener.js"
-import { getDefaultColumn } from "../../common/data.functions.js"
-
 
 export class Body extends Listener {
   static className = 'body_component'
@@ -23,24 +21,21 @@ export class Body extends Listener {
 
     const options = {
       items: this.items,
-      sortBy: getDefaultColumn(this.items),
       toTable: this.toTable,
       root: this.root,
     }
-    
+
     this.sortBy = options.sortBy
     const render = () => {this.render(options)}
     
-    
     getSubscribers(this)
     render()
+    this.addListeners()
   }
 
   render(options) {
     options.columns = this.api.columns
-    this.removeListeners()
     getBody(options)
-    this.addListeners()
   }
 
   onClick() {

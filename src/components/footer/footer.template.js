@@ -1,6 +1,6 @@
-export function getFooter(root) {
-  root.innerHTML = footerTemplate
-
+export function getFooter(self) {
+  self.root.innerHTML = footerTemplate
+  
 }
 
 const footerTemplate = 

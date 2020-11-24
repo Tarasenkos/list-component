@@ -6,11 +6,4 @@ export function createElement(tag, className = '') {
 }
 
 
-export function getKeyNumber(obj) {
-  return getObjKeys(obj).length
-}
-
-
 export function getObjKeys(obj) {return Object.keys(obj)}
-
-

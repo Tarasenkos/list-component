@@ -38,7 +38,7 @@ export const cars = [
   { make: 'Volvo', color: 'Синий', race: 0 },
   { make: 'Volvo', color: 'Красный', race: 10000 },
   { make: 'Range Rover', color: 'Белый', race: 48657 },
-  { make: 'Mersedes', color: 'Желтый', race: 10000 },
+  { make: 'Mercedes', color: 'Желтый', race: 10000 },
   { make: 'KIA', color: 'Черный', race: 9524 },
   { make: 'Subaru', color: 'Желтый', race: 1500},
   { make: 'Mazda', color: 'Зеленый', race: 40125},
